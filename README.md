@@ -1,6 +1,6 @@
-# Common SLCORP Assets
+# Common Micro4.x workarond Assets
 
-This folder is the proposed Git submodule root for files shared by SLCORP04 and SLCORP05.
+This folder is the proposed Git submodule root for files shared by a Project.
 
 ## Layout
 
