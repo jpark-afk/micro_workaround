@@ -41,7 +41,7 @@
 /**
  * @brief Current DDS initialization state (NOT configurable)
  */
- /* workaround#COMMON - task overrun issue */
+ /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 DdsCdd_InitState_t dds_cdd_init_state = DdsCdd_InitState_Uninitialized;
 
 /*==============================================================================

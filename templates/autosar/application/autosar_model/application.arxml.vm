@@ -193,7 +193,7 @@
         </SWC-IMPLEMENTATION>
       </ELEMENTS>
     </AR-PACKAGE> ## End of ComponentTypes
-    <!-- Workaround#COMMON - delete duplated port inteface definition -->
+    <!-- Workaround#COMMON - MICRO-14138 - delete duplated port inteface definition -->
     <!--
     ## - - - - - - - - - - - - - - - - -
     ## Port Interfaces                 |

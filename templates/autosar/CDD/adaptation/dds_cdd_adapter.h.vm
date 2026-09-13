@@ -33,7 +33,7 @@ ${hashtag}define Trigger_DdsCdd_RxIndication Rte_IrTrigger_DdsCdd_RxIndication_I
  */
 typedef enum
 {
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     //DdsCdd_InitState_TcpIpNotReady = 0,
     //DdsCdd_InitState_TcpIpReady,
     DdsCdd_InitState_Uninitialized = 0,
@@ -126,7 +126,7 @@ void DdsCdd_TcpIpEvent(
  */
 void DdsCdd_Adapter_Init(void);
 
-/* workaround#COMMON - task overrun issue */
+/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 /**
  * @brief Enable DDS entities
  * 

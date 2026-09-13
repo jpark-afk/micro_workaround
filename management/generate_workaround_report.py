@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate workaround report from .vm files under a folder.
+"""Generate workaround report from workaround marker files under common folders.
 
 The report scans for workaround tags in the form `workaround#CLASS` (case-insensitive),
 extracts nearby context lines, and writes a Markdown report.
@@ -15,7 +15,9 @@ from pathlib import Path
 from typing import Iterable
 
 WORKAROUND_PATTERN = re.compile(r"workaround#(?:\s*([A-Za-z0-9_]+))?", re.IGNORECASE)
-REPORT_VERSION = "1.0.0"
+CONNEXT_MICRO_VERSION = "4.0.0_ER738"
+DEFAULT_SOURCE_DIRS = ("templates", "fix_psl")
+DEFAULT_OUTPUT = Path("workaround_report.md")
 
 CATEGORY_DEFINITIONS = {
     "COMMON": "Mandatory patch.",
@@ -59,6 +61,13 @@ def normalize_category(raw_category: str | None) -> str:
     return category if category else "COMMON"
 
 
+def display_path(path: Path, root: Path) -> str:
+    try:
+        return path.relative_to(root).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def find_xml_comment_end(lines: list[str], start_line: int) -> int:
     """Return the line number where an XML comment ends, or start_line if not a block."""
     line_text = lines[start_line - 1]
@@ -74,33 +83,41 @@ def find_xml_comment_end(lines: list[str], start_line: int) -> int:
     return start_line
 
 
-def collect_occurrences(source_dir: Path, context_lines: int) -> list[Occurrence]:
+def collect_occurrences(source_dirs: Iterable[Path], context_lines: int, exclude_paths: Iterable[Path]) -> list[Occurrence]:
     occurrences: list[Occurrence] = []
+    excluded = {path.resolve() for path in exclude_paths}
+    seen_files: set[Path] = set()
 
-    for vm_file in sorted(source_dir.rglob("*.vm"), key=lambda p: str(p).lower()):
-        content = read_text_with_fallback(vm_file)
-        lines = content.splitlines()
-
-        for idx, line in enumerate(lines, start=1):
-            if "workaround#" not in line.lower():
+    for source_dir in source_dirs:
+        for source_file in sorted(source_dir.rglob("*"), key=lambda p: str(p).lower()):
+            source_file = source_file.resolve()
+            if not source_file.is_file() or source_file in excluded or source_file in seen_files:
                 continue
 
-            for match in WORKAROUND_PATTERN.finditer(line):
-                category = normalize_category(match.group(1))
-                start = max(1, idx - context_lines)
-                xml_comment_end = find_xml_comment_end(lines, idx)
-                end = min(len(lines), max(idx + context_lines, xml_comment_end + context_lines))
-                snippet = lines[start - 1 : end]
-                occurrences.append(
-                    Occurrence(
-                        file_path=vm_file,
-                        line_no=idx,
-                        category=category,
-                        context_start=start,
-                        context_end=end,
-                        lines=snippet,
+            seen_files.add(source_file)
+            content = read_text_with_fallback(source_file)
+            lines = content.splitlines()
+
+            for idx, line in enumerate(lines, start=1):
+                if "workaround#" not in line.lower():
+                    continue
+
+                for match in WORKAROUND_PATTERN.finditer(line):
+                    category = normalize_category(match.group(1))
+                    start = max(1, idx - context_lines)
+                    xml_comment_end = find_xml_comment_end(lines, idx)
+                    end = min(len(lines), max(idx + context_lines, xml_comment_end + context_lines))
+                    snippet = lines[start - 1 : end]
+                    occurrences.append(
+                        Occurrence(
+                            file_path=source_file,
+                            line_no=idx,
+                            category=category,
+                            context_start=start,
+                            context_end=end,
+                            lines=snippet,
+                        )
                     )
-                )
 
     return occurrences
 
@@ -126,7 +143,7 @@ def build_category_summary(counts: Counter) -> str:
 
 
 def build_report(
-    source_dir: Path,
+    source_label: str,
     occurrences: Iterable[Occurrence],
     workspace_root: Path,
     generated_at: datetime,
@@ -135,12 +152,15 @@ def build_report(
     counts = Counter(item.category for item in items)
 
     lines: list[str] = []
-    lines.append(f"**Report Version: {REPORT_VERSION}**")
-    lines.append(f"- Generated date: {generated_at.strftime('%Y-%m-%d')}")
+    lines.append("# RTI workaround report")
+    lines.append("")
+    lines.append(f"## Generated date: {generated_at.strftime('%Y-%m-%d')}")
+    lines.append("")
+    lines.append(f"## Baseline Connext Micro version: {CONNEXT_MICRO_VERSION}")
     lines.append("")
     lines.append("**Workaround Report -- snippets with context and line numbers**")
     lines.append("")
-    lines.append(f"- Scope: collected `workaround#` occurrences from all `.vm` files under `{source_dir.as_posix()}`.")
+    lines.append(f"- Scope: collected `workaround#` occurrences from all files under {source_label}.")
     lines.append(f"- Total items found: {len(items)}")
     lines.append(f"- Categories: {build_category_summary(counts)}")
     lines.append("")
@@ -178,8 +198,9 @@ def build_report(
             continue
 
         for item in category_items:
-            relative_path = item.file_path.relative_to(workspace_root).as_posix()
+            relative_path = display_path(item.file_path, workspace_root)
             lines.append(f"{section_index}) File: {relative_path} (L{item.line_no})")
+            lines.append(item.lines[item.line_no - item.context_start].strip())
             lines.append("```text")
 
             current_line = item.context_start
@@ -195,14 +216,15 @@ def build_report(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate workaround report from .vm templates")
+    parser = argparse.ArgumentParser(description="Generate workaround report from marked source files")
     parser.add_argument(
         "--source",
-        help="Folder to scan recursively for .vm files (default: this script's directory)",
+        action="append",
+        help="Folder to scan recursively. Can be specified multiple times (default: common/templates and common/fix_psl)",
     )
     parser.add_argument(
         "--output",
-        help="Output markdown file path (default: <source>/workaround_report.md)",
+        help="Output markdown file path (default: common/workaround_report.md)",
     )
     parser.add_argument(
         "--context",
@@ -227,17 +249,19 @@ def main() -> int:
         raise ValueError("--context must be >= 0")
 
     script_dir = Path(__file__).resolve().parent
-    source_dir = resolve_path(args.source, script_dir) if args.source else script_dir
-    output_file = resolve_path(args.output, script_dir) if args.output else source_dir / "workaround_report.md"
-    workspace_root = source_dir.parent
+    common_dir = script_dir.parent
+    workspace_root = common_dir.parent
+    source_dirs = [resolve_path(source, script_dir) for source in args.source] if args.source else [common_dir / source for source in DEFAULT_SOURCE_DIRS]
+    output_file = resolve_path(args.output, script_dir) if args.output else common_dir / DEFAULT_OUTPUT
 
-    if not source_dir.exists() or not source_dir.is_dir():
-        raise FileNotFoundError(f"Source folder not found: {source_dir}")
+    for source_dir in source_dirs:
+        if not source_dir.exists() or not source_dir.is_dir():
+            raise FileNotFoundError(f"Source folder not found: {source_dir}")
 
-    occurrences = collect_occurrences(source_dir=source_dir, context_lines=args.context)
-    source_label = source_dir.relative_to(workspace_root)
+    occurrences = collect_occurrences(source_dirs=source_dirs, context_lines=args.context, exclude_paths=[output_file])
+    source_label = ", ".join(f"`{display_path(source_dir, workspace_root)}`" for source_dir in source_dirs)
     report = build_report(
-        source_dir=source_label,
+        source_label=source_label,
         occurrences=occurrences,
         workspace_root=workspace_root,
         generated_at=datetime.now(),

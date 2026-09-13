@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""workaround#HAE"""
 """Patch a raw HKMC DDS System XML with the parts a fresh customer export
 is missing, entirely from built-in templates (no reference XML needed):
 

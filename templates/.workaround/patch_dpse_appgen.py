@@ -6,6 +6,7 @@
 # Must NOT be applied directly to controller mass-production development.
 # See README.md for details.
 
+"""workaround#COMMON - MAG-424 """
 """Patch DPSE-mode Appgen.h/.c files with the correct include and dds_ prefix.
 
 rtiddsmag run without -deployment/-applicationType produces <xmlName>Appgen.h/.c

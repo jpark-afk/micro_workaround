@@ -1,6 +1,11 @@
 source_root = "C:\RTI\rti_connext_drive-4.0.0\rti_connext_dds-7.3.1\rti_connext_dds_micro-4.3.0_ER738\src\rti_me_psl\netiopsl\udp"
 output_root = "_patched_tmp"
-marker = "PATCHED_BY_micro430_ER738_services"
+marker = "workaround#COMMON - MICRO-14110"
+# The following features are disabled when Micro is compiled with the CERT flags:
+# binding the send socket 
+# monitoring the network stack for state changes for sockets and interfaces
+# Must handle the case where the TcpIp stack comes up before Micro.
+# These features must also be enabled with for the Cert profile. It is not clear why they are disabled.
 
 # line_hint:
 #   original file line number to anchor the patch.

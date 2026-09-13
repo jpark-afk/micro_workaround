@@ -27,7 +27,7 @@
  */
 #include "autosarMutex.h"
 
-/* workaround#COMMON - task overrun issue */
+/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 #include "dds_cdd_adapter.h"
 extern DdsCdd_InitState_t dds_cdd_init_state;
 
@@ -240,13 +240,13 @@ OSAPI_Mutex_take(P2VAR(struct OSAPI_Mutex, AUTOMATIC, SOAD_APPL_DATA) mutex)
 {
     StatusType ret_value;
     RTI_BOOL success = RTI_FALSE;
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     OSAPI_ThreadId self; //= OSAPI_Thread_self();
 
     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
 
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     if (dds_cdd_init_state < DdsCdd_InitState_EntitiesCreated) return RTI_TRUE;   
     self = OSAPI_Thread_self();
 
@@ -295,7 +295,7 @@ OSAPI_Mutex_give(P2VAR(struct OSAPI_Mutex, AUTOMATIC, SOAD_APPL_DATA) mutex)
     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
 
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     if (dds_cdd_init_state < DdsCdd_InitState_EntitiesCreated) return RTI_TRUE;
 
     if (!OSAPI_Mutex_is_owned(mutex))

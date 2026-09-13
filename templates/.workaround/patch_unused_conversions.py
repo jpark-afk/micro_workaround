@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""workaround#COMMON - APIT-499"""
 """Comment conversion blocks for DDS types unused by a deployment."""
 import argparse
 import re

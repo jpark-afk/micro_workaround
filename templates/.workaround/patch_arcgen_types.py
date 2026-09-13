@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""workaround#COMMON - APIT-495 """
 """Patch DDS XML primitive type names for rtiarcgen compatibility.
 
 The source XML may use the newer type names from

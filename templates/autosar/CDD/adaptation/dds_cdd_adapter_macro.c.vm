@@ -77,7 +77,7 @@ ${hashtag}define __at(address)
 ${hashtag}endif
 ${hashtag}endif
 
-/* workaround#COMMON - Some RTI Micro 4.3.0 header sets do not expose these prototypes publicly. */
+/* workaround#COMMON - MICRO-14139- Some RTI Micro 4.3.0 header sets do not expose these prototypes publicly. */
 RTI_BOOL OSPSL_AutosarSystem_get_property(struct OSAPI_SystemAutosar *property);
 RTI_BOOL OSPSL_AutosarSystem_set_property(struct OSAPI_SystemAutosar *property);
 
@@ -123,7 +123,7 @@ static const uint32 heap_area_size[DDSCDD_NUMBER_OF_HEAP_AREAS] =
  * 
  * Pre-allocated static buffer for DDS memory management.
  */
- /* Workaround#HAE - empty start_address doesn't need at() */
+ /* Workaround#HAE - MICRO-14140 - empty start_address doesn't need at() */
     #foreach( $heap in $heaps )
     #set( $heapStartAddress = "$!heap.getStartAddress()" )
     #if( $heapStartAddress.trim().length() > 0 )
@@ -189,7 +189,7 @@ static int SetSystemProperties(void)
     /* Connext DDS Micro will use Resources as synchronization method */
     system_property.psl_property.sync_type = OSAPI_AUTOSAR_SYNCKIND_RESOURCES;
     system_property.psl_property.mutex_resource_id = ${autosarConfig.getMutexResourceId()};
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     system_property.psl_property.timer_resource_id = OsResource_DdsTimer;
     system_property.psl_property.netio_resource_id = OsResource_DdsNetio;
     
@@ -257,7 +257,7 @@ static int SetSystemProperties(void)
 void DdsCdd_Adapter_Init(void)
 {
     sint8 retval;
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     //printf("DDS_Init: Start Init DDS \n");
 
     /* Check if TcpIp is ready */
@@ -269,7 +269,7 @@ void DdsCdd_Adapter_Init(void)
     //}
 
     /* Set system properties */
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     //if (dds_cdd_init_state == DdsCdd_InitState_TcpIpReady)
     //{
         printf("DDS_Init: Setting system properties\n");
@@ -279,7 +279,7 @@ void DdsCdd_Adapter_Init(void)
             dds_cdd_init_state = DdsCdd_InitState_Error;
             return;
         }
-        /* Workaround#COMMON - PIL option error */
+        /* Workaround#COMMON - PLATFORMS-6163 - PIL option error */
 ${hashtag}if 0
         //original implementation
         else if(RTI_TRUE != OSAPI_System_initialize())
@@ -336,7 +336,7 @@ ${hashtag}endif
 ## macro to define the DdsCdd_Adapter_Enable_DDSEntities function
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #macro( ddsCddAdapterC_DdsCdd_Adapter_Enable_DDSEntities  )
-/* workaround#COMMON - task overrun issue */
+/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 /**********************************************************************************************************************
  * DdsCdd_Adapter_Enable_DDSEntities()
  *********************************************************************************************************************/
@@ -379,7 +379,7 @@ void DdsCdd_Adapter_Enable_DDSEntities(void)
 ## macro to define the DdsCdd_Adapter_Run function
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #macro( ddsCddAdapterC_DdsCdd_Adapter_Run )
-/* workaround#COMMON - task overrun issue */
+/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 /**********************************************************************************************************************
  * DdsCdd_Adapter_Run()
  *********************************************************************************************************************/
@@ -454,7 +454,7 @@ int DdsCdd_Adapter_Read_${topic}(${type}* rte_data)
         /* Valid sample received */
         printf("DdsCdd_Adapter_Read_${topic}: Valid sample received\n");
 
-        /* Convert DDS type (dds_${type}) to AUTOSAR type (${type}) */ /* workaround#COMMON - delete & of rte_data */
+        /* Convert DDS type (dds_${type}) to AUTOSAR type (${type}) */ /* workaround#COMMON - MICRO-13937 - delete & of rte_data */
         ${type}_dds_to_rte(&dds_sample, rte_data);
         return 0;
     }
@@ -574,7 +574,7 @@ void DdsCdd_LocalIpAddrAssignmentChg(
     NETIO_Autosar_update_ip_assignment_state(LocalAddrId, State);
     if((State == TCPIP_IPADDR_STATE_ASSIGNED))
     {
-        /* workaround#COMMON - task overrun issue */
+        /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
         //if ((dds_cdd_init_state == DdsCdd_InitState_TcpIpNotReady) && (LocalAddrId == 0))
         //{
         //    printf("TCP/IP is ready - allow DDS initialization\n");

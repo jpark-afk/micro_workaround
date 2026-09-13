@@ -116,7 +116,7 @@ FUNC(void, DdsCdd_CODE) DdsCddProcessData(void) /* PRQA S 0624, 3206 */ /* MD_Rt
     #end
 #end
 
-/* workaround#COMMON - task overrun issue */
+/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 /**********************************************************************************************************************
  *
  * Runnable Entity Name: TimerTick
@@ -161,7 +161,7 @@ FUNC(void, DdsCdd_CODE) DdsCddTimerTick(void) /* PRQA S 0624, 3206 */ /* MD_Rte_
  *********************************************************************************************************************/
 }
 
-/* workaround#COMMON - task overrun issue */
+/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
 /**********************************************************************************************************************
  *
  * Runnable Entity Name: TimerUpdate
@@ -267,7 +267,7 @@ FUNC(void, DdsCdd_CODE) DdsCddStart(void) /* PRQA S 0624, 3206 */ /* MD_Rte_0624
  * DO NOT CHANGE THIS COMMENT!           << Start of runnable implementation >>             DO NOT CHANGE THIS COMMENT!
  * Symbol: DdsCddStart
  *********************************************************************************************************************/
-    /* workaround#COMMON - task overrun issue */
+    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
     /* Enable DDS Entities */
     DdsCdd_Adapter_Enable_DDSEntities();
 
@@ -286,7 +286,7 @@ FUNC(void, DdsCdd_CODE) DdsCddStart(void) /* PRQA S 0624, 3206 */ /* MD_Rte_0624
     #end
 #end
 
-/* workaround#COMMON - wrong position, DdsCdd_Init placed outside. */
+/* workaround#COMMON - MICRO-14137 - wrong position, DdsCdd_Init placed outside. */
 ${hashtag}if 0
 ${hashtag}define DdsCdd_STOP_SEC_CODE
 ${hashtag}include "DdsCddType_MemMap.h" /* PRQA S 5087 */ /* MD_MSR_MemMap */
@@ -299,7 +299,7 @@ ${hashtag}endif
   FUNC(void, DdsCdd_CODE) DdsCdd_Init(void) 
 {
   /* TODO: Create entities once micro allows doing so before rte*/
-  /* workaround#COMMON - task overrun issue */
+  /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
   /* Initialize DDS adapter layer */
   DdsCdd_Adapter_Init();    //This function will be called by EcuM directly before StartOs.
 }

@@ -2,10 +2,9 @@
 setlocal
 
 set "SCRIPT_DIR=%~dp0"
-set "TEMPLATES_DIR=%SCRIPT_DIR%..\templates"
 set "PYTHON_EXE=python"
 
-"%PYTHON_EXE%" "%TEMPLATES_DIR%\generate_workaround_report.py" %*
+"%PYTHON_EXE%" "%SCRIPT_DIR%generate_workaround_report.py" %*
 set "EXIT_CODE=%ERRORLEVEL%"
 
 if not "%EXIT_CODE%"=="0" (
