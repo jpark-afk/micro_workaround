@@ -8,7 +8,7 @@ Generate runnable scripts from a project token file:
 common\management\render_project_scripts.bat projects\slcorp04\project-template-values.yaml --force
 ```
 
-This reads `common\templates\.project_scripts\**\*.template.*` and writes files such as `generate_ddscdd.bat` and `@PROJECT_WORK_DIR@\patch_run.bat` into the directory containing `project-template-values.yaml`.
+This reads the `.template.bat` and `.template.sh` files under `common\templates\.project_scripts` and writes files such as `generate_ddscdd.bat`, `generate_testapp_native.sh`, and `@PROJECT_WORK_DIR@\patch_run.bat` into the directory containing `project-template-values.yaml`.
 
 Common tokens:
 
@@ -30,4 +30,6 @@ Token values may reference other tokens. For example, `SYSTEM_XML_REL_PATH` can 
 - `@PATCH_INPUT_XML_FILE@`
 - `@PATCH_OUTPUT_XML_FILE@`
 - `@PATCH_AUTOSAR_PARTICIPANT@`
+- `@RTIMEHOME_LINUX@`
+- `@JRE_HOME_LINUX@`
 - `@TEST_XML_DIR_POSIX@`

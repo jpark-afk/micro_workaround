@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 TOKEN_RE = re.compile(r"@([A-Z0-9_]+)@")
+TEMPLATE_PATTERNS = ("*.template.bat", "*.template.sh")
 
 
 def expand_token_values(tokens: dict[str, str]) -> dict[str, str]:
@@ -96,7 +97,11 @@ def output_path(template_path: Path, template_dir: Path, output_dir: Path, token
 
 def render_templates(values_path: Path, template_dir: Path, output_dir: Path, force: bool) -> list[Path]:
     tokens = parse_project_values(values_path)
-    templates = sorted(template_dir.rglob("*.template.*"))
+    templates = sorted(
+        template
+        for pattern in TEMPLATE_PATTERNS
+        for template in template_dir.rglob(pattern)
+    )
     if not templates:
         raise FileNotFoundError(f"No script templates found in {template_dir}")
 
