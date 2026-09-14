@@ -68,6 +68,18 @@ def display_path(path: Path, root: Path) -> str:
         return path.as_posix()
 
 
+def format_match_line(line: str) -> str:
+    """Format the matched line so source syntax cannot change report layout."""
+    formatted = line.strip()
+    if "<!--" in formatted:
+        formatted = formatted.split("<!--", 1)[1]
+        if "-->" in formatted:
+            formatted = formatted.split("-->", 1)[0]
+        formatted = formatted.strip()
+
+    return formatted.lstrip("#").lstrip()
+
+
 def find_xml_comment_end(lines: list[str], start_line: int) -> int:
     """Return the line number where an XML comment ends, or start_line if not a block."""
     line_text = lines[start_line - 1]
@@ -91,7 +103,12 @@ def collect_occurrences(source_dirs: Iterable[Path], context_lines: int, exclude
     for source_dir in source_dirs:
         for source_file in sorted(source_dir.rglob("*"), key=lambda p: str(p).lower()):
             source_file = source_file.resolve()
-            if not source_file.is_file() or source_file in excluded or source_file in seen_files:
+            if (
+                not source_file.is_file()
+                or source_file.suffix.lower() == ".md"
+                or source_file in excluded
+                or source_file in seen_files
+            ):
                 continue
 
             seen_files.add(source_file)
@@ -199,8 +216,10 @@ def build_report(
 
         for item in category_items:
             relative_path = display_path(item.file_path, workspace_root)
-            lines.append(f"{section_index}) File: {relative_path} (L{item.line_no})")
-            lines.append(item.lines[item.line_no - item.context_start].strip())
+            lines.append(f"{section_index}) File: {relative_path} (L{item.line_no})  ")
+            matched_line = item.lines[item.line_no - item.context_start]
+            lines.append(f"{format_match_line(matched_line)}  ")
+            lines.append("")
             lines.append("```text")
 
             current_line = item.context_start
