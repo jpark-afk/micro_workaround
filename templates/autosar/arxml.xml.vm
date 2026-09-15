@@ -346,7 +346,7 @@ For example: 1, 0, 1267, +10000.</L-2>
                #end
                 <RUNNABLE-ENTITY>
                   <SHORT-NAME>ProcessData</SHORT-NAME>
-                  <SYMBOL>ProcessData</SYMBOL> <!-- Workaround#COMMON - TBD - no symbol name -->
+                  <SYMBOL>ProcessData</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
                 </RUNNABLE-ENTITY>
                 <RUNNABLE-ENTITY>
                   <SHORT-NAME>RxIndication</SHORT-NAME>
@@ -356,12 +356,12 @@ For example: 1, 0, 1267, +10000.</L-2>
                       <SW-IMPL-POLICY>STANDARD</SW-IMPL-POLICY>
                     </INTERNAL-TRIGGERING-POINT>
                   </INTERNAL-TRIGGERING-POINTS>
-                  <SYMBOL>RxIndication</SYMBOL> <!-- Workaround#COMMON - TBD - no symbol name -->
+                  <SYMBOL>RxIndication</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
                 </RUNNABLE-ENTITY>
                 <!-- Workaround#Common - overrun issue -->
                 <RUNNABLE-ENTITY>
                   <SHORT-NAME>TimerUpdate</SHORT-NAME>
-                  <SYMBOL>TimerUpdate</SYMBOL> <!-- Workaround#COMMON - TBD - no symbol name -->
+                  <SYMBOL>TimerUpdate</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
                 </RUNNABLE-ENTITY>
               </RUNNABLES>
               <SUPPORTS-MULTIPLE-INSTANTIATION>false</SUPPORTS-MULTIPLE-INSTANTIATION>

@@ -1,14 +1,14 @@
 # RTI workaround report
 
-## Generated date: 2026-09-14
+## Generated date: 2026-09-15
 
-## Baseline Connext Micro version: 4.0.0_ER738
+## Baseline Connext Micro version: 4.3.0_ER738
 
 **Workaround Report -- snippets with context and line numbers**
 
 - Scope: collected `workaround#` occurrences from all files under `common/templates`, `common/fix_psl`.
-- Total items found: 46
-- Categories: COMMON (30), HAE (14), VTT (2)
+- Total items found: 51
+- Categories: COMMON (33), HAE (16), VTT (2)
 
 Category definitions:
 - **COMMON**: Mandatory patch.
@@ -17,7 +17,7 @@ Category definitions:
 
 Below are code snippets (about +/-5 lines) around each `workaround#` occurrence. Items are grouped by category in this order: COMMON, HAE, VTT.
 
-### COMMON (30)
+### COMMON (33)
 
 1) File: common/templates/.workaround/patch_arcgen_types.py (L2)  
 """workaround#COMMON - APIT-495 """  
@@ -79,8 +79,159 @@ L200:     ## - - - - - - - - - - - - - - - - -
 L201:     <AR-PACKAGE>
 ```
 
-5) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.c.vm (L44)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+5) File: common/templates/autosar/arxml.xml.vm (L193)  
+Workaround#Common - PLATFORMS-6094 - overrun issue  
+
+```text
+L188:                   #end
+L189:                 #end
+L190:               #end
+L191:                 <TIMING-EVENT>
+L192:                   <SHORT-NAME>TMT_DdsCdd_Run</SHORT-NAME>
+L193:                   <!-- Workaround#Common - PLATFORMS-6094 - overrun issue -->
+L194:                   <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/TimerTick</START-ON-EVENT-REF>
+L195:                   <OFFSET>0.002</OFFSET>
+L196:                   <PERIOD>0.01</PERIOD>
+L197:                 </TIMING-EVENT>
+L198:                 <INIT-EVENT>
+```
+
+6) File: common/templates/autosar/arxml.xml.vm (L224)  
+Workaround#Common - PLATFORMS-6094 - overrun issue  
+
+```text
+L219:                 <INTERNAL-TRIGGER-OCCURRED-EVENT>
+L220:                   <SHORT-NAME>ITOE_DdsRxIndication_DataReception_ITP_DummyCallout</SHORT-NAME>
+L221:                   <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/ProcessData</START-ON-EVENT-REF>
+L222:                   <EVENT-SOURCE-REF DEST="INTERNAL-TRIGGERING-POINT">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/RxIndication/ITP_DdsCdd_RxIndication</EVENT-SOURCE-REF>
+L223:                 </INTERNAL-TRIGGER-OCCURRED-EVENT>
+L224:                 <!-- Workaround#Common - PLATFORMS-6094 - overrun issue -->
+L225:                 <INTERNAL-TRIGGER-OCCURRED-EVENT>
+L226:                   <SHORT-NAME>ITOE_TimerUpdate_ITP_TimerUpdate</SHORT-NAME>
+L227:                   <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/TimerUpdate</START-ON-EVENT-REF>
+L228:                   <EVENT-SOURCE-REF DEST="INTERNAL-TRIGGERING-POINT">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/TimerTick/ITP_TimerUpdate</EVENT-SOURCE-REF>
+L229:                 </INTERNAL-TRIGGER-OCCURRED-EVENT>
+```
+
+7) File: common/templates/autosar/arxml.xml.vm (L259)  
+Workaround#Common - PLATFORMS-6094 - overrun issue  
+
+```text
+L254:                     </RUNNABLE-ENTITY>
+L255:                     #end
+L256:                    #end
+L257:                   #end
+L258:                 #end
+L259:                 <!-- Workaround#Common - PLATFORMS-6094 - overrun issue
+L260:                 <RUNNABLE-ENTITY>
+L261:                   <SHORT-NAME>Run</SHORT-NAME>
+L262:                   <CAN-ENTERS>
+L263:                     <EXCLUSIVE-AREA-REF-CONDITIONAL>
+L264:                       <EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/ExclusiveArea_tick</EXCLUSIVE-AREA-REF>
+L265:                     </EXCLUSIVE-AREA-REF-CONDITIONAL>
+L266:                     <EXCLUSIVE-AREA-REF-CONDITIONAL>
+L267:                       <EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/ExclusiveArea_system</EXCLUSIVE-AREA-REF>
+L268:                     </EXCLUSIVE-AREA-REF-CONDITIONAL>
+L269:                   </CAN-ENTERS>
+L270:                   <MINIMUM-START-INTERVAL>0</MINIMUM-START-INTERVAL>
+L271:                   <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+L272:                   <SYMBOL>Run</SYMBOL>
+L273:                 </RUNNABLE-ENTITY>
+L274:                 -->
+L275:                 <!-- Workaround#Common - PLATFORMS-6094 - overrun issue -->
+L276:                 <RUNNABLE-ENTITY>
+L277:                   <SHORT-NAME>TimerTick</SHORT-NAME>
+L278:                   <CAN-ENTERS>
+L279:                     <EXCLUSIVE-AREA-REF-CONDITIONAL>
+```
+
+8) File: common/templates/autosar/arxml.xml.vm (L275)  
+Workaround#Common - PLATFORMS-6094 - overrun issue  
+
+```text
+L270:                   <MINIMUM-START-INTERVAL>0</MINIMUM-START-INTERVAL>
+L271:                   <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+L272:                   <SYMBOL>Run</SYMBOL>
+L273:                 </RUNNABLE-ENTITY>
+L274:                 -->
+L275:                 <!-- Workaround#Common - PLATFORMS-6094 - overrun issue -->
+L276:                 <RUNNABLE-ENTITY>
+L277:                   <SHORT-NAME>TimerTick</SHORT-NAME>
+L278:                   <CAN-ENTERS>
+L279:                     <EXCLUSIVE-AREA-REF-CONDITIONAL>
+L280:                       <EXCLUSIVE-AREA-REF DEST="EXCLUSIVE-AREA">/ComponentTypes/DdsCddType/DdsCddType_InternalBehavior/ExclusiveArea_tick</EXCLUSIVE-AREA-REF>
+```
+
+9) File: common/templates/autosar/arxml.xml.vm (L349)  
+Workaround#COMMON - MAG-454 - no symbol name  
+
+```text
+L344:                #end
+L345:                #end
+L346:                #end
+L347:                 <RUNNABLE-ENTITY>
+L348:                   <SHORT-NAME>ProcessData</SHORT-NAME>
+L349:                   <SYMBOL>ProcessData</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+L350:                 </RUNNABLE-ENTITY>
+L351:                 <RUNNABLE-ENTITY>
+L352:                   <SHORT-NAME>RxIndication</SHORT-NAME>
+L353:                   <INTERNAL-TRIGGERING-POINTS>
+L354:                     <INTERNAL-TRIGGERING-POINT>
+```
+
+10) File: common/templates/autosar/arxml.xml.vm (L359)  
+Workaround#COMMON - MAG-454 - no symbol name  
+
+```text
+L354:                     <INTERNAL-TRIGGERING-POINT>
+L355:                       <SHORT-NAME>ITP_DdsCdd_RxIndication</SHORT-NAME>
+L356:                       <SW-IMPL-POLICY>STANDARD</SW-IMPL-POLICY>
+L357:                     </INTERNAL-TRIGGERING-POINT>
+L358:                   </INTERNAL-TRIGGERING-POINTS>
+L359:                   <SYMBOL>RxIndication</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+L360:                 </RUNNABLE-ENTITY>
+L361:                 <!-- Workaround#Common - overrun issue -->
+L362:                 <RUNNABLE-ENTITY>
+L363:                   <SHORT-NAME>TimerUpdate</SHORT-NAME>
+L364:                   <SYMBOL>TimerUpdate</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+```
+
+11) File: common/templates/autosar/arxml.xml.vm (L361)  
+Workaround#Common - overrun issue  
+
+```text
+L356:                       <SW-IMPL-POLICY>STANDARD</SW-IMPL-POLICY>
+L357:                     </INTERNAL-TRIGGERING-POINT>
+L358:                   </INTERNAL-TRIGGERING-POINTS>
+L359:                   <SYMBOL>RxIndication</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+L360:                 </RUNNABLE-ENTITY>
+L361:                 <!-- Workaround#Common - overrun issue -->
+L362:                 <RUNNABLE-ENTITY>
+L363:                   <SHORT-NAME>TimerUpdate</SHORT-NAME>
+L364:                   <SYMBOL>TimerUpdate</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+L365:                 </RUNNABLE-ENTITY>
+L366:               </RUNNABLES>
+```
+
+12) File: common/templates/autosar/arxml.xml.vm (L364)  
+Workaround#COMMON - MAG-454 - no symbol name  
+
+```text
+L359:                   <SYMBOL>RxIndication</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+L360:                 </RUNNABLE-ENTITY>
+L361:                 <!-- Workaround#Common - overrun issue -->
+L362:                 <RUNNABLE-ENTITY>
+L363:                   <SHORT-NAME>TimerUpdate</SHORT-NAME>
+L364:                   <SYMBOL>TimerUpdate</SYMBOL> <!-- Workaround#COMMON - MAG-454 - no symbol name -->
+L365:                 </RUNNABLE-ENTITY>
+L366:               </RUNNABLES>
+L367:               <SUPPORTS-MULTIPLE-INSTANTIATION>false</SUPPORTS-MULTIPLE-INSTANTIATION>
+L368:             </SWC-INTERNAL-BEHAVIOR>
+L369:           </INTERNAL-BEHAVIORS>
+```
+
+13) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.c.vm (L44)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue. Delete static keyword */  
 
 ```text
 L39:  *============================================================================*/
@@ -88,7 +239,7 @@ L40:
 L41: /**
 L42:  * @brief Current DDS initialization state (NOT configurable)
 L43:  */
-L44:  /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L44:  /* workaround#COMMON - MAG-438 - Init task overrun issue. Delete static keyword */
 L45: DdsCdd_InitState_t dds_cdd_init_state = DdsCdd_InitState_Uninitialized;
 L46: 
 L47: /*==============================================================================
@@ -96,8 +247,8 @@ L48:  *                     SW-C RUNNABLE IMPLEMENTATIONS
 L49:  *============================================================================*/
 ```
 
-6) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.h.vm (L36)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+14) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.h.vm (L36)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue. */  
 
 ```text
 L31: /**
@@ -105,7 +256,7 @@ L32:  * @brief DDS initialization state tracking
 L33:  */
 L34: typedef enum
 L35: {
-L36:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L36:     /* workaround#COMMON - MAG-438 - Init task overrun issue. */
 L37:     //DdsCdd_InitState_TcpIpNotReady = 0,
 L38:     //DdsCdd_InitState_TcpIpReady,
 L39:     DdsCdd_InitState_Uninitialized = 0,
@@ -113,8 +264,8 @@ L40:
 L41:     DdsCdd_InitState_SystemPropertiesSet,
 ```
 
-7) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.h.vm (L129)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+15) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.h.vm (L129)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L124:  * 
@@ -122,7 +273,7 @@ L125:  * Sets system properties and creates DDS entities.
 L126:  */
 L127: void DdsCdd_Adapter_Init(void);
 L128: 
-L129: /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L129: /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L130: /**
 L131:  * @brief Enable DDS entities
 L132:  * 
@@ -130,7 +281,7 @@ L133:  * Enables DDS entities after creation.
 L134:  */
 ```
 
-8) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L80)  
+16) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L80)  
 /* workaround#COMMON - MICRO-14139- Some RTI Micro 4.3.0 header sets do not expose these prototypes publicly. */  
 
 ```text
@@ -147,7 +298,7 @@ L84: #end
 L85: 
 ```
 
-9) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L192)  
+17) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L192)  
 /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
 
 ```text
@@ -164,8 +315,8 @@ L196:     /* AUTOSAR synchronization configuration - Resources only */
 L197:     system_property.psl_property.semaphore_max_count = 0;
 ```
 
-10) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L260)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+18) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L260)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L255:  * @post DDS entities created but disabled if successful
@@ -173,7 +324,7 @@ L256:  */
 L257: void DdsCdd_Adapter_Init(void)
 L258: {
 L259:     sint8 retval;
-L260:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L260:     /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L261:     //printf("DDS_Init: Start Init DDS \n");
 L262: 
 L263:     /* Check if TcpIp is ready */
@@ -181,8 +332,8 @@ L264:     //if (dds_cdd_init_state == DdsCdd_InitState_TcpIpNotReady ||
 L265:     //    dds_cdd_init_state == DdsCdd_InitState_Error)
 ```
 
-11) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L272)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+19) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L272)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L267:     //    printf("DDS_Init: TcpIp not ready or error state\n");
@@ -190,7 +341,7 @@ L268:     //    return;
 L269:     //}
 L270: 
 L271:     /* Set system properties */
-L272:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L272:     /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L273:     //if (dds_cdd_init_state == DdsCdd_InitState_TcpIpReady)
 L274:     //{
 L275:         printf("DDS_Init: Setting system properties\n");
@@ -198,7 +349,7 @@ L276:         if (0 != SetSystemProperties())
 L277:         {
 ```
 
-12) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L282)  
+20) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L282)  
 /* Workaround#COMMON - PLATFORMS-6163 - PIL option error */  
 
 ```text
@@ -215,8 +366,8 @@ L286:         {
 L287:             printf("DDS_Init: OSAPI_System initialization failed\n");
 ```
 
-13) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L339)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+21) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L339)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L334: 
@@ -224,7 +375,7 @@ L335: ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 L336: ## macro to define the DdsCdd_Adapter_Enable_DDSEntities function
 L337: ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 L338: #macro( ddsCddAdapterC_DdsCdd_Adapter_Enable_DDSEntities  )
-L339: /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L339: /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L340: /**********************************************************************************************************************
 L341:  * DdsCdd_Adapter_Enable_DDSEntities()
 L342:  *********************************************************************************************************************/
@@ -232,7 +383,7 @@ L343: /**
 L344:  * @brief Enable DDS entities
 ```
 
-14) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L382)  
+22) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L382)  
 /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
 
 ```text
@@ -249,7 +400,7 @@ L386: /**
 L387:  * @brief Maintain DDS timer
 ```
 
-15) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L457)  
+23) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L457)  
 /* Convert DDS type (dds_${type}) to AUTOSAR type (${type}) */ /* workaround#COMMON - MICRO-13937 - delete & of rte_data */  
 
 ```text
@@ -266,8 +417,8 @@ L461:     else
 L462:     {
 ```
 
-16) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L577)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+24) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L577)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L572: {
@@ -275,7 +426,7 @@ L573:     printf("[RTI] DDS_LocalIpAddrAssignmentChg %u:%u!\n", LocalAddrId, Sta
 L574:     NETIO_Autosar_update_ip_assignment_state(LocalAddrId, State);
 L575:     if((State == TCPIP_IPADDR_STATE_ASSIGNED))
 L576:     {
-L577:         /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L577:         /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L578:         //if ((dds_cdd_init_state == DdsCdd_InitState_TcpIpNotReady) && (LocalAddrId == 0))
 L579:         //{
 L580:         //    printf("TCP/IP is ready - allow DDS initialization\n");
@@ -283,7 +434,7 @@ L581:         //    dds_cdd_init_state = DdsCdd_InitState_TcpIpReady;
 L582:         //}
 ```
 
-17) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L119)  
+25) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L119)  
 /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
 
 ```text
@@ -300,7 +451,7 @@ L123:  *
 L124:  *---------------------------------------------------------------------------------------------------------------------
 ```
 
-18) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L164)  
+26) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L164)  
 /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
 
 ```text
@@ -317,8 +468,8 @@ L168:  *
 L169:  *---------------------------------------------------------------------------------------------------------------------
 ```
 
-19) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L270)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+27) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L270)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L265: {
@@ -326,7 +477,7 @@ L266: /*************************************************************************
 L267:  * DO NOT CHANGE THIS COMMENT!           << Start of runnable implementation >>             DO NOT CHANGE THIS COMMENT!
 L268:  * Symbol: DdsCddStart
 L269:  *********************************************************************************************************************/
-L270:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L270:     /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L271:     /* Enable DDS Entities */
 L272:     DdsCdd_Adapter_Enable_DDSEntities();
 L273: 
@@ -334,7 +485,7 @@ L274: /*************************************************************************
 L275:  * DO NOT CHANGE THIS COMMENT!           << End of runnable implementation >>               DO NOT CHANGE THIS COMMENT!
 ```
 
-20) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L289)  
+28) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L289)  
 /* workaround#COMMON - MICRO-14137 - wrong position, DdsCdd_Init placed outside. */  
 
 ```text
@@ -351,8 +502,8 @@ L293: ${hashtag}endif
 L294: 
 ```
 
-21) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L302)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+29) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L302)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L297:  *********************************************************************************************************************/
@@ -360,7 +511,7 @@ L298:
 L299:   FUNC(void, DdsCdd_CODE) DdsCdd_Init(void) 
 L300: {
 L301:   /* TODO: Create entities once micro allows doing so before rte*/
-L302:   /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L302:   /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L303:   /* Initialize DDS adapter layer */
 L304:   DdsCdd_Adapter_Init();    //This function will be called by EcuM directly before StartOs.
 L305: }
@@ -368,22 +519,8 @@ L306:
 L307: /* workaround#HAE - right position and senction name */
 ```
 
-22) File: common/fix_psl/psl_fix_14110/code_patch_rules.toml (L3)  
-marker = "workaround#COMMON - MICRO-14110"  
-
-```text
-L1: source_root = "C:\RTI\rti_connext_drive-4.0.0\rti_connext_dds-7.3.1\rti_connext_dds_micro-4.3.0_ER738\src\rti_me_psl\netiopsl\udp"
-L2: output_root = "_patched_tmp"
-L3: marker = "workaround#COMMON - MICRO-14110"
-L4: # The following features are disabled when Micro is compiled with the CERT flags:
-L5: # binding the send socket 
-L6: # monitoring the network stack for state changes for sockets and interfaces
-L7: # Must handle the case where the TcpIp stack comes up before Micro.
-L8: # These features must also be enabled with for the Cert profile. It is not clear why they are disabled.
-```
-
-23) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L30)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+30) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L30)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L25:  * \file
@@ -391,7 +528,7 @@ L26:  * \brief AutoSAR implementation of OSAPI mutex routines
 L27:  */
 L28: #include "autosarMutex.h"
 L29: 
-L30: /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L30: /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L31: #include "dds_cdd_adapter.h"
 L32: extern DdsCdd_InitState_t dds_cdd_init_state;
 L33: 
@@ -399,8 +536,8 @@ L34: /* Global mutex lock */
 L35: RTI_PRIVATE struct OSAPI_Mutex OSAPI_AutosarMutex_fv_GlobalMutex = OSAPI_MUTEX_INITIALIZER;
 ```
 
-24) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L243)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+31) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L243)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L238: FUNC(RTI_BOOL, SOAD_CODE)
@@ -408,7 +545,7 @@ L239: OSAPI_Mutex_take(P2VAR(struct OSAPI_Mutex, AUTOMATIC, SOAD_APPL_DATA) mute
 L240: {
 L241:     StatusType ret_value;
 L242:     RTI_BOOL success = RTI_FALSE;
-L243:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L243:     /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L244:     OSAPI_ThreadId self; //= OSAPI_Thread_self();
 L245: 
 L246:     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
@@ -416,8 +553,8 @@ L247:                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE)
 L248: 
 ```
 
-25) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L249)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+32) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L249)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L244:     OSAPI_ThreadId self; //= OSAPI_Thread_self();
@@ -425,7 +562,7 @@ L245:
 L246:     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
 L247:                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
 L248: 
-L249:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L249:     /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L250:     if (dds_cdd_init_state < DdsCdd_InitState_EntitiesCreated) return RTI_TRUE;   
 L251:     self = OSAPI_Thread_self();
 L252: 
@@ -433,8 +570,8 @@ L253:     /* check recursion using internal state of the singleton */
 L254:     if (OSAPI_Mutex_is_owned(mutex))
 ```
 
-26) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L298)  
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */  
+33) File: common/fix_psl/psl_fix_6094/src/rti_me_psl/ospsl/autosar/autosarMutex.c (L298)  
+/* workaround#COMMON - MAG-438 - Init task overrun issue */  
 
 ```text
 L293:     RTI_BOOL success = RTI_FALSE;
@@ -442,7 +579,7 @@ L294:
 L295:     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
 L296:                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
 L297: 
-L298:     /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L298:     /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L299:     if (dds_cdd_init_state < DdsCdd_InitState_EntitiesCreated) return RTI_TRUE;
 L300: 
 L301:     if (!OSAPI_Mutex_is_owned(mutex))
@@ -450,77 +587,9 @@ L302:     {
 L303:         return RTI_FALSE;
 ```
 
-27) File: common/fix_psl/repository/srcC/ospsl/autosar/autosarMutex.c (L30)  
-/* workaround#COMMON - task overrun issue */  
+### HAE (16)
 
-```text
-L25:  * \file
-L26:  * \brief AutoSAR implementation of OSAPI mutex routines
-L27:  */
-L28: #include "autosarMutex.h"
-L29: 
-L30: /* workaround#COMMON - task overrun issue */
-L31: #include "dds_cdd_adapter.h"
-L32: extern DdsCdd_InitState_t dds_cdd_init_state;
-L33: 
-L34: /* Global mutex lock */
-L35: RTI_PRIVATE struct OSAPI_Mutex OSAPI_AutosarMutex_fv_GlobalMutex = OSAPI_MUTEX_INITIALIZER;
-```
-
-28) File: common/fix_psl/repository/srcC/ospsl/autosar/autosarMutex.c (L243)  
-/* workaround#COMMON - task overrun issue */  
-
-```text
-L238: FUNC(RTI_BOOL, SOAD_CODE)
-L239: OSAPI_Mutex_take(P2VAR(struct OSAPI_Mutex, AUTOMATIC, SOAD_APPL_DATA) mutex)
-L240: {
-L241:     StatusType ret_value;
-L242:     RTI_BOOL success = RTI_FALSE;
-L243:     /* workaround#COMMON - task overrun issue */
-L244:     OSAPI_ThreadId self; //= OSAPI_Thread_self();
-L245: 
-L246:     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
-L247:                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
-L248: 
-```
-
-29) File: common/fix_psl/repository/srcC/ospsl/autosar/autosarMutex.c (L249)  
-/* workaround#COMMON - task overrun issue */  
-
-```text
-L244:     OSAPI_ThreadId self; //= OSAPI_Thread_self();
-L245: 
-L246:     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
-L247:                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
-L248: 
-L249:     /* workaround#COMMON - task overrun issue */
-L250:     if (dds_cdd_init_state < DdsCdd_InitState_EntitiesCreated) return RTI_TRUE;   
-L251:     self = OSAPI_Thread_self();
-L252: 
-L253:     /* check recursion using internal state of the singleton */
-L254:     if (OSAPI_Mutex_is_owned(mutex))
-```
-
-30) File: common/fix_psl/repository/srcC/ospsl/autosar/autosarMutex.c (L298)  
-/* workaround#COMMON - task overrun issue */  
-
-```text
-L293:     RTI_BOOL success = RTI_FALSE;
-L294: 
-L295:     OSAPI_PRECONDITION(mutex == NULL_PTR,return RTI_FALSE,
-L296:                        OSAPI_Log_entry_add_pointer("mutex",mutex,RTI_TRUE);)
-L297: 
-L298:     /* workaround#COMMON - task overrun issue */
-L299:     if (dds_cdd_init_state < DdsCdd_InitState_EntitiesCreated) return RTI_TRUE;
-L300: 
-L301:     if (!OSAPI_Mutex_is_owned(mutex))
-L302:     {
-L303:         return RTI_FALSE;
-```
-
-### HAE (14)
-
-31) File: common/templates/.workaround/patch_missing_part_hkmc.py (L2)  
+34) File: common/templates/.workaround/patch_missing_part_hkmc.py (L2)  
 """workaround#HAE"""  
 
 ```text
@@ -533,7 +602,7 @@ L6: - The root xsi:noNamespaceSchemaLocation, pointed at the local Micro install
 L7:   schema instead of the community.rti.com URL.
 ```
 
-32) File: common/templates/.workaround/patch_missing_part_hkmc.py (L259)  
+35) File: common/templates/.workaround/patch_missing_part_hkmc.py (L259)  
 element.append(ET.Comment(" Workaround#HAE "))  
 
 ```text
@@ -550,7 +619,7 @@ L263:     autosar.append(ET.Comment(" [REQUIRED] Set to the highest index used i
 L264:     ET.SubElement(autosar, "max_local_addr_id").text = str(max_local_addr_id)
 ```
 
-33) File: common/templates/.workaround/patch_receiver_init_values.py (L2)  
+36) File: common/templates/.workaround/patch_receiver_init_values.py (L2)  
 """workaround#HAE - mobilgene cannot interpret RECORD-VALUE-SPECIFICATION"""  
 
 ```text
@@ -563,7 +632,7 @@ L6: import tempfile
 L7: import xml.etree.ElementTree as ET
 ```
 
-34) File: common/templates/autosar/application/autosar_model/application.arxml.vm (L65)  
+37) File: common/templates/autosar/application/autosar_model/application.arxml.vm (L65)  
 Workaround#HAE - delete unnecessary elements  
 
 ```text
@@ -584,7 +653,52 @@ L73:                       <FIELDS>
 L74:                         <NUMERICAL-VALUE-SPECIFICATION>
 ```
 
-35) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.c.vm (L77)  
+38) File: common/templates/autosar/arxml.xml.vm (L88)  
+Workaround#HAE - delete unnecessary elements  
+
+```text
+L83:                     <NONQUEUED-RECEIVER-COM-SPEC>
+L84:                       <DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/PortInterfaces/$datawriter.topicName/$datawriter.typeRef</DATA-ELEMENT-REF>
+L85:                       <USES-END-TO-END-PROTECTION>false</USES-END-TO-END-PROTECTION>
+L86:                       <ALIVE-TIMEOUT>0</ALIVE-TIMEOUT>
+L87:                       <ENABLE-UPDATE>false</ENABLE-UPDATE>
+L88:                       <!-- Workaround#HAE - delete unnecessary elements
+L89:                       <FILTER>
+L90:                         <DATA-FILTER-TYPE>ALWAYS</DATA-FILTER-TYPE>
+L91:                       </FILTER>
+L92:                       -->
+L93:                       <HANDLE-NEVER-RECEIVED>false</HANDLE-NEVER-RECEIVED>
+L94:                       <INIT-VALUE>
+L95:                         <RECORD-VALUE-SPECIFICATION>
+L96:                           <FIELDS>
+L97:                             <NUMERICAL-VALUE-SPECIFICATION>
+```
+
+39) File: common/templates/autosar/arxml.xml.vm (L414)  
+Workaround#HAE - delete unnecessary elements  
+
+```text
+L409:                 </SW-DATA-DEF-PROPS-VARIANTS>
+L410:               </SW-DATA-DEF-PROPS>
+L411:               <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/dds/$topicEntry.get(1)</TYPE-TREF>
+L412:               </VARIABLE-DATA-PROTOTYPE>
+L413:             </DATA-ELEMENTS>
+L414:             <!-- Workaround#HAE - delete unnecessary elements
+L415:             <INVALIDATION-POLICYS>
+L416:               <INVALIDATION-POLICY>
+L417:               <DATA-ELEMENT-REF DEST="VARIABLE-DATA-PROTOTYPE">/PortInterfaces/$topicEntry.get(0)/$topicEntry.get(1)</DATA-ELEMENT-REF>
+L418:               <HANDLE-INVALID>DONT-INVALIDATE</HANDLE-INVALID>
+L419:               </INVALIDATION-POLICY>
+L420:             </INVALIDATION-POLICYS>
+L421:             -->
+L422:           </SENDER-RECEIVER-INTERFACE>
+L423:         #end
+L424:       </ELEMENTS>
+L425:     </AR-PACKAGE>
+L426:   </AR-PACKAGES>
+```
+
+40) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter.c.vm (L77)  
 /* Workaround#HAE - mobilgene naming rule, prefix TcpIp_ */  
 
 ```text
@@ -601,7 +715,7 @@ L81:
 L82: #ddsCddAdapterC_DdsCdd_LocalIpAddrAssignmentChg()
 ```
 
-36) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L126)  
+41) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L126)  
 /* Workaround#HAE - MICRO-14140 - empty start_address doesn't need at() */  
 
 ```text
@@ -618,7 +732,7 @@ L130: static char heap_area${foreach.count}[DDSCDD_${heap.getName().toUpperCase(
 L131:     #else
 ```
 
-37) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L185)  
+42) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L185)  
 /* workaround#HAE - enable use_udp_thread */  
 
 ```text
@@ -635,7 +749,7 @@ L189:     /* Connext DDS Micro will use Resources as synchronization method */
 L190:     system_property.psl_property.sync_type = OSAPI_AUTOSAR_SYNCKIND_RESOURCES;
 ```
 
-38) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L213)  
+43) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L213)  
 /* workaround#HAE - enable use_udp_thread */  
 
 ```text
@@ -652,7 +766,7 @@ L217:     /* Set AUTOSAR TcpIp integration callbacks */
 L218:     system_property.psl_property.get_socket = DdsCdd_GetSocket;
 ```
 
-39) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L225)  
+44) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L225)  
 /* workaround#HAE - enable use_udp_thread */  
 
 ```text
@@ -669,7 +783,7 @@ L229:
 L230:     if (!OSPSL_AutosarSystem_set_property(&system_property))
 ```
 
-40) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.h.vm (L117)  
+45) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.h.vm (L117)  
 /* workaround#HAE */  
 
 ```text
@@ -686,7 +800,7 @@ L121:     ${hashtag}ifndef VVIRTUALTARGET
 L122:     ${hashtag}include "dds_impl.h"
 ```
 
-41) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.h.vm (L125)  
+46) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.h.vm (L125)  
 /* workaround#HAE - add an user_stub header file */  
 
 ```text
@@ -703,7 +817,7 @@ L129: ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 L130: ## macro to declare write functions that RTE will call when application writes to RTE
 ```
 
-42) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L66)  
+47) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L66)  
 /* workaround#HAE - section naming rule */  
 
 ```text
@@ -720,11 +834,11 @@ L70: ${hashtag}define DdsCddType_START_SEC_CODE
 L71: ${hashtag}endif
 ```
 
-43) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L307)  
+48) File: common/templates/autosar/CDD/autosar_gen/DdsCdd.c.vm (L307)  
 /* workaround#HAE - right position and senction name */  
 
 ```text
-L302:   /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+L302:   /* workaround#COMMON - MAG-438 - Init task overrun issue */
 L303:   /* Initialize DDS adapter layer */
 L304:   DdsCdd_Adapter_Init();    //This function will be called by EcuM directly before StartOs.
 L305: }
@@ -737,7 +851,7 @@ L311: ${hashtag}define DdsCddType_STOP_SEC_CODE
 L312: ${hashtag}endif
 ```
 
-44) File: common/templates/autosar/CDD/dds_impl/dds_impl_macro.h.vm (L56)  
+49) File: common/templates/autosar/CDD/dds_impl/dds_impl_macro.h.vm (L56)  
 /* workaround#HAE - don't use serialprintf */  
 
 ```text
@@ -756,7 +870,7 @@ L61:             ${hashtag}define cprintf CANoeAPI_Printf
 
 ### VTT (2)
 
-45) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L48)  
+50) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L48)  
 /* Workaround#VTT */  
 
 ```text
@@ -773,7 +887,7 @@ L52: ${hashtag}include "../dds_impl/dds_impl.h"
 L53: ${hashtag}undef SetEvent
 ```
 
-46) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L72)  
+51) File: common/templates/autosar/CDD/adaptation/dds_cdd_adapter_macro.c.vm (L72)  
 /* Workaround#VTT */  
 
 ```text

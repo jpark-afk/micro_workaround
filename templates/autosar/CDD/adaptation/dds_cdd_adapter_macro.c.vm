@@ -257,7 +257,7 @@ static int SetSystemProperties(void)
 void DdsCdd_Adapter_Init(void)
 {
     sint8 retval;
-    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+    /* workaround#COMMON - MAG-438 - Init task overrun issue */
     //printf("DDS_Init: Start Init DDS \n");
 
     /* Check if TcpIp is ready */
@@ -269,7 +269,7 @@ void DdsCdd_Adapter_Init(void)
     //}
 
     /* Set system properties */
-    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+    /* workaround#COMMON - MAG-438 - Init task overrun issue */
     //if (dds_cdd_init_state == DdsCdd_InitState_TcpIpReady)
     //{
         printf("DDS_Init: Setting system properties\n");
@@ -336,7 +336,7 @@ ${hashtag}endif
 ## macro to define the DdsCdd_Adapter_Enable_DDSEntities function
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #macro( ddsCddAdapterC_DdsCdd_Adapter_Enable_DDSEntities  )
-/* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+/* workaround#COMMON - MAG-438 - Init task overrun issue */
 /**********************************************************************************************************************
  * DdsCdd_Adapter_Enable_DDSEntities()
  *********************************************************************************************************************/
@@ -574,7 +574,7 @@ void DdsCdd_LocalIpAddrAssignmentChg(
     NETIO_Autosar_update_ip_assignment_state(LocalAddrId, State);
     if((State == TCPIP_IPADDR_STATE_ASSIGNED))
     {
-        /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+        /* workaround#COMMON - MAG-438 - Init task overrun issue */
         //if ((dds_cdd_init_state == DdsCdd_InitState_TcpIpNotReady) && (LocalAddrId == 0))
         //{
         //    printf("TCP/IP is ready - allow DDS initialization\n");

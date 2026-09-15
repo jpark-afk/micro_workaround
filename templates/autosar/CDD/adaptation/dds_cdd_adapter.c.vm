@@ -41,7 +41,7 @@
 /**
  * @brief Current DDS initialization state (NOT configurable)
  */
- /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+ /* workaround#COMMON - MAG-438 - Init task overrun issue. Delete static keyword */
 DdsCdd_InitState_t dds_cdd_init_state = DdsCdd_InitState_Uninitialized;
 
 /*==============================================================================

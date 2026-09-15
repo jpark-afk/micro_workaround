@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Iterable
 
 WORKAROUND_PATTERN = re.compile(r"workaround#(?:\s*([A-Za-z0-9_]+))?", re.IGNORECASE)
-CONNEXT_MICRO_VERSION = "4.0.0_ER738"
+CONNEXT_MICRO_VERSION = "4.3.0_ER738"
 DEFAULT_SOURCE_DIRS = ("templates", "fix_psl")
 DEFAULT_OUTPUT = Path("workaround_report.md")
 
@@ -105,7 +105,7 @@ def collect_occurrences(source_dirs: Iterable[Path], context_lines: int, exclude
             source_file = source_file.resolve()
             if (
                 not source_file.is_file()
-                or source_file.suffix.lower() == ".md"
+                or source_file.suffix.lower() in {".md", ".toml"}
                 or source_file in excluded
                 or source_file in seen_files
             ):

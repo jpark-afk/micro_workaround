@@ -267,7 +267,7 @@ FUNC(void, DdsCdd_CODE) DdsCddStart(void) /* PRQA S 0624, 3206 */ /* MD_Rte_0624
  * DO NOT CHANGE THIS COMMENT!           << Start of runnable implementation >>             DO NOT CHANGE THIS COMMENT!
  * Symbol: DdsCddStart
  *********************************************************************************************************************/
-    /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+    /* workaround#COMMON - MAG-438 - Init task overrun issue */
     /* Enable DDS Entities */
     DdsCdd_Adapter_Enable_DDSEntities();
 
@@ -299,7 +299,7 @@ ${hashtag}endif
   FUNC(void, DdsCdd_CODE) DdsCdd_Init(void) 
 {
   /* TODO: Create entities once micro allows doing so before rte*/
-  /* workaround#COMMON - PLATFORMS-6094 - task overrun issue */
+  /* workaround#COMMON - MAG-438 - Init task overrun issue */
   /* Initialize DDS adapter layer */
   DdsCdd_Adapter_Init();    //This function will be called by EcuM directly before StartOs.
 }
